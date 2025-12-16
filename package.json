@@ -5,7 +5,7 @@
   "type": "module",
   "author": "artemis-lab",
   "license": "MIT",
-  "description": "A collection of React demo components showcasing various patterns and techniques",
+  "description": "Collection of React demo components showcasing various patterns and techniques",
   "scripts": {
     "build": "tsc -b && vite build",
     "clean": "rm -rf dist",
