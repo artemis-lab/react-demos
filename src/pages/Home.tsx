@@ -21,6 +21,17 @@ const Home = () => {
             />
           </div>
         </section>
+
+        <section>
+          <h2 className="mb-4 text-2xl font-semibold text-gray-700">Games</h2>
+          <div className="grid gap-4">
+            <DemoCard
+              description="Classic Tic-Tac-Toe game demonstrating separation of game logic from UI, immutable state patterns, and win condition algorithms."
+              title="Tic-Tac-Toe"
+              to="/games/tic-tac-toe"
+            />
+          </div>
+        </section>
       </div>
     </div>
   );

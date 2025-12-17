@@ -9,6 +9,8 @@ A collection of React demo components showcasing various patterns and techniques
 Demonstrates modern React development practices including:
 
 - DOM parsing and manipulation
+- Separation of business logic from UI
+- Immutable state patterns
 - Component composition
 - TypeScript best practices
 - Tailwind CSS styling
@@ -77,6 +79,20 @@ A Capture The Flag challenge demonstrating:
 
 **Route:** `/challenges/flag-capture`
 
+### Games
+
+#### Tic-Tac-Toe
+
+A classic game demonstrating:
+
+- Separation of game logic from UI components
+- Immutable state updates (game logic returns new instances)
+- Win condition algorithms
+- 3x3 board layout with Tailwind styling
+- Click event handling and hover effects
+
+**Route:** `/games/tic-tac-toe`
+
 ## Features
 
 - ✅ **Type-safe**: TypeScript with strict mode and enhanced type checking
@@ -92,12 +108,45 @@ A Capture The Flag challenge demonstrating:
 
 ### Component Structure
 
-All reusable UI components live in `src/components/`:
+The project follows a clear separation of concerns:
+
+**`src/components/`** - Reusable UI components
 
 - `Layout` - Provides header/footer wrapper for all pages
 - `Header` - "Back to Home" navigation (hidden on home page)
 - `Footer` - Attribution and GitHub links
 - `DemoCard` - Reusable card for linking to demos
+
+**`src/demos/`** - Demo showcase components
+
+- `demos/challenges/` - CTF and puzzle demos (e.g., FlagCapture)
+- `demos/games/` - Game UI components (e.g., TicTacToe)
+
+**`src/games/`** - Pure TypeScript game logic (no React)
+
+- Immutable classes with factory methods
+- Business logic separated from UI
+- Example: `TicTacToe` class in `games/TicTacToe/game.ts`
+
+**`src/pages/`** - Page components
+
+- `Home` - Landing page with demo cards
+
+### Game Architecture Pattern
+
+Games separate business logic from UI:
+
+- **Game Logic** (`src/games/`) - Pure TypeScript classes with immutable patterns (methods return new instances)
+- **UI Components** (`src/demos/games/`) - React components that wrap game logic classes
+
+Example: `TicTacToe` class handles game rules and logic, while `TicTacToe.tsx` manages component state and renders the UI.
+
+### State Management
+
+- Local state via `useState` (no global state library)
+- Derived values via `useMemo`
+- Memoized callbacks via `useCallback`
+- Immutable game state (game logic returns new instances)
 
 ### Routing
 
