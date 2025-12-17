@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
+import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
@@ -15,6 +16,7 @@ export default defineConfig([
   {
     files: ["**/*.{ts,tsx}"],
     plugins: {
+      react,
       "simple-import-sort": simpleImportSort,
     },
     languageOptions: {
@@ -35,6 +37,15 @@ export default defineConfig([
         },
       ],
       "@typescript-eslint/no-explicit-any": "warn",
+      "react/jsx-sort-props": [
+        "error",
+        {
+          callbacksLast: true,
+          multiline: "last",
+          reservedFirst: true,
+          shorthandFirst: true,
+        },
+      ],
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
     },
