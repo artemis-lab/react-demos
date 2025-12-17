@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="mt-12 border-t border-gray-200 pt-6 text-center text-sm text-gray-600">
+    <footer className="border-t border-gray-200 py-4 text-center text-sm text-gray-600">
       <p>
         Created by{" "}
         <a
@@ -12,7 +12,7 @@ const Footer = () => {
           artemis-lab
         </a>
       </p>
-      <p className="mt-2">
+      <p className="mt-1">
         <a
           className="text-indigo-600 hover:underline"
           href="https://github.com/artemis-lab/react-demos"

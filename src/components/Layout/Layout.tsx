@@ -15,9 +15,7 @@ const Layout = () => {
         <Outlet />
       </main>
 
-      <div className="pb-4">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
