@@ -5,7 +5,7 @@
   "type": "module",
   "author": "artemis-lab",
   "license": "MIT",
-  "description": "Collection of React demo components showcasing various patterns and techniques",
+  "description": "A collection of React demo components showcasing various patterns and techniques",
   "repository": {
     "type": "git",
     "url": "https://github.com/artemis-lab/react-demos.git"
