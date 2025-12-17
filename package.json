@@ -10,6 +10,9 @@
     "type": "git",
     "url": "https://github.com/artemis-lab/react-demos.git"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "build": "tsc -b && vite build",
     "clean": "rm -rf dist",
