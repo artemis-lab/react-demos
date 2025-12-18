@@ -30,6 +30,11 @@ const Home = () => {
               title="Tic-Tac-Toe"
               to="/games/tic-tac-toe"
             />
+            <DemoCard
+              description="Word guessing game with letter-by-letter reveals. Features an interactive keyboard, visual feedback, and attempt tracking."
+              title="Letter Guess"
+              to="/games/letter-guess"
+            />
           </div>
         </section>
       </div>
