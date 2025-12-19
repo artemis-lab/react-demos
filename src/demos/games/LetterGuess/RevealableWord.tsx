@@ -7,29 +7,35 @@ interface RevealableWordProps {
   visibleLetters: ReadonlySet<string>;
 }
 
-const getDisplayValue = (
-  character: string,
-  index: number,
-  visibleLetters: ReadonlySet<string>,
-): string => {
-  // Show actual character if visible or not a letter
-  if (visibleLetters.has(character) || !isLetter(character)) {
-    return character;
-  }
-
-  // Show underscore with space for hidden characters
-  return index > 0 ? " _" : "_";
-};
-
 const RevealableWord = ({
   characters,
   visibleLetters,
 }: RevealableWordProps) => {
   return (
-    <div>
-      {characters.map((value: string, index: number) => (
-        <span key={index}>{getDisplayValue(value, index, visibleLetters)}</span>
-      ))}
+    <div className="flex flex-wrap justify-center gap-1 font-mono text-4xl font-bold">
+      {characters.map((value: string, index: number) => {
+        const isSpace = value === " ";
+        const isLetterCharacter = isLetter(value);
+        const isVisible = isLetterCharacter && visibleLetters.has(value);
+        const displayValue = isVisible || !isLetterCharacter ? value : "_";
+
+        return (
+          <span
+            key={`${index}-${value}-${isVisible}`}
+            className={
+              isSpace
+                ? "w-2"
+                : isVisible
+                  ? "animate-pulse text-blue-600 [animation-iteration-count:3]"
+                  : isLetterCharacter
+                    ? "text-blue-300"
+                    : "text-blue-600"
+            }
+          >
+            {displayValue}
+          </span>
+        );
+      })}
     </div>
   );
 };

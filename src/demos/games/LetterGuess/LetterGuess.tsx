@@ -21,20 +21,26 @@ const LetterGuess = () => {
   const visibleLetters = game.getVisibleLetters();
 
   return (
-    <div className="m-4 flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <RevealableWord
-          characters={characters}
-          visibleLetters={visibleLetters}
+    <div className="flex items-center justify-center">
+      <div className="flex flex-col items-center gap-6 rounded-2xl bg-white p-6 shadow-2xl">
+        <h1 className="text-3xl font-bold text-gray-800">Letter Guess</h1>
+
+        <div className="flex w-full flex-col items-center gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4">
+          <RevealableWord
+            characters={characters}
+            visibleLetters={visibleLetters}
+          />
+          <RemainingAttempts count={attemptsRemaining} />
+        </div>
+
+        <LetterKeyboard
+          clickedLetters={clickedLetters}
+          disabled={isGameOver}
+          onKeyClick={onKeyClick}
         />
-        <RemainingAttempts count={attemptsRemaining} />
+
+        {isGameOver && <div>Game over!</div>}
       </div>
-      <LetterKeyboard
-        clickedLetters={clickedLetters}
-        disabled={isGameOver}
-        onKeyClick={onKeyClick}
-      />
-      {isGameOver && <div>Game over!</div>}
     </div>
   );
 };
