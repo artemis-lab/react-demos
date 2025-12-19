@@ -35,24 +35,24 @@ const getButtonClassName = (
 interface LetterKeyboardProps {
   clickedLetters: ReadonlySet<string>;
   disabled: boolean;
-  onKeyClick: (key: string) => void;
+  onLetterClick: (letter: string) => void;
 }
 
 const LetterKeyboard = ({
   clickedLetters,
   disabled,
-  onKeyClick,
+  onLetterClick,
 }: LetterKeyboardProps) => {
   const [pressedKey, setPressedKey] = useState<string | null>(null);
 
   const handleClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
-      const key = event.currentTarget.dataset.key;
-      if (key) {
-        onKeyClick(key);
+      const letter = event.currentTarget.dataset.key;
+      if (letter) {
+        onLetterClick(letter);
       }
     },
-    [onKeyClick],
+    [onLetterClick],
   );
 
   // Add physical keyboard support
@@ -65,14 +65,10 @@ const LetterKeyboard = ({
         return;
       }
 
-      const normalizedKey = event.key.toUpperCase();
+      const letter = event.key.toUpperCase();
 
       // Only process if game is not disabled, it's a letter, and not already clicked
-      if (
-        disabled ||
-        !isLetter(normalizedKey) ||
-        clickedLetters.has(normalizedKey)
-      ) {
+      if (disabled || !isLetter(letter) || clickedLetters.has(letter)) {
         return;
       }
 
@@ -81,13 +77,13 @@ const LetterKeyboard = ({
 
       // Visual feedback for keyboard press
       clearTimeout(timeoutId);
-      setPressedKey(normalizedKey);
+      setPressedKey(letter);
       timeoutId = setTimeout(
         () => setPressedKey(null),
         PRESS_FEEDBACK_DURATION_MS,
       );
 
-      onKeyClick(normalizedKey);
+      onLetterClick(letter);
     };
 
     window.addEventListener("keydown", handleKeyPress);
@@ -95,7 +91,7 @@ const LetterKeyboard = ({
       clearTimeout(timeoutId);
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [clickedLetters, disabled, onKeyClick]);
+  }, [clickedLetters, disabled, onLetterClick]);
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -105,24 +101,24 @@ const LetterKeyboard = ({
       >
         {LAYOUT.map((row, index) => (
           <div key={index} className="flex flex-row gap-2" role="group">
-            {row.map((key) => {
-              const normalizedKey = key.toUpperCase();
-              const isClicked = clickedLetters.has(normalizedKey);
+            {row.map((letter) => {
+              const normalizedLetter = letter.toUpperCase();
+              const isClicked = clickedLetters.has(normalizedLetter);
               const isDisabled = disabled || isClicked;
-              const isPressed = pressedKey === normalizedKey;
+              const isPressed = pressedKey === normalizedLetter;
 
               return (
                 <button
-                  key={normalizedKey}
-                  aria-label={`Letter ${normalizedKey}`}
+                  key={normalizedLetter}
+                  aria-label={`Letter ${normalizedLetter}`}
                   aria-pressed={isPressed}
                   className={getButtonClassName(isDisabled, isPressed)}
-                  data-key={normalizedKey}
+                  data-key={normalizedLetter}
                   disabled={isDisabled}
                   type="button"
                   onClick={handleClick}
                 >
-                  {normalizedKey}
+                  {normalizedLetter}
                 </button>
               );
             })}

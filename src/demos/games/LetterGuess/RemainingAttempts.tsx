@@ -1,22 +1,22 @@
 import { Circle } from "lucide-react";
 import { memo } from "react";
 
-const getAttemptsColor = (count: number): string => {
-  if (count <= 1) {
+const getAttemptsColor = (remaining: number): string => {
+  if (remaining <= 1) {
     return "text-red-600";
   }
-  if (count <= 2) {
+  if (remaining <= 2) {
     return "text-yellow-600";
   }
   return "text-green-600";
 };
 
 interface RemainingAttemptsProps {
-  count: number;
+  remaining: number;
 }
 
-const RemainingAttempts = ({ count }: RemainingAttemptsProps) => {
-  const textColor = getAttemptsColor(count);
+const RemainingAttempts = ({ remaining }: RemainingAttemptsProps) => {
+  const textColor = getAttemptsColor(remaining);
 
   return (
     <div
@@ -29,8 +29,8 @@ const RemainingAttempts = ({ count }: RemainingAttemptsProps) => {
         size={16}
       />
       <span>
-        Remaining {count === 1 ? "attempt" : "attempts"}:{" "}
-        <strong className={textColor}>{count}</strong>
+        Remaining {remaining === 1 ? "attempt" : "attempts"}:{" "}
+        <strong className={textColor}>{remaining}</strong>
       </span>
     </div>
   );

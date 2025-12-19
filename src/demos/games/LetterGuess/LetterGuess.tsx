@@ -10,7 +10,7 @@ const LetterGuess = () => {
     LetterGuessGame.create(5, "HELLO, WORLD!"),
   );
 
-  const onKeyClick = useCallback((letter: string): void => {
+  const onLetterClick = useCallback((letter: string): void => {
     setGame((prev: LetterGuessGame) => prev.guessLetter(letter));
   }, []);
 
@@ -30,13 +30,13 @@ const LetterGuess = () => {
             characters={characters}
             visibleLetters={visibleLetters}
           />
-          <RemainingAttempts count={attemptsRemaining} />
+          <RemainingAttempts remaining={attemptsRemaining} />
         </div>
 
         <LetterKeyboard
           clickedLetters={clickedLetters}
           disabled={isGameOver}
-          onKeyClick={onKeyClick}
+          onLetterClick={onLetterClick}
         />
 
         {isGameOver && <div>Game over!</div>}
