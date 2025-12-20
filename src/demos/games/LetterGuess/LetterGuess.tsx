@@ -15,9 +15,9 @@ const LetterGuess = () => {
     setGame((prev: LetterGuessGame) => prev.guessLetter(letter));
   }, []);
 
-  const handleReset = () => {
-    setGame(game.reset());
-  };
+  const handleReset = useCallback(() => {
+    setGame((prev: LetterGuessGame) => prev.reset());
+  }, []);
 
   const attemptsRemaining = game.getAttemptsRemaining();
   const characters = game.getTargetCharacters();
@@ -53,12 +53,15 @@ const LetterGuess = () => {
           />
         </div>
 
-        <button
-          className="w-full rounded-lg border border-blue-300 bg-blue-50 px-6 py-2 text-sm font-medium text-blue-700 transition-colors duration-200 hover:bg-blue-100 active:bg-blue-200"
-          onClick={handleReset}
-        >
-          New Game
-        </button>
+        <div className="w-full border-t border-gray-200 pt-4">
+          <button
+            aria-label="Start a new game"
+            className="w-full rounded-lg border border-blue-300 bg-blue-50 px-6 py-2 text-sm font-medium text-blue-700 transition-colors duration-200 hover:bg-blue-100 active:bg-blue-200"
+            onClick={handleReset}
+          >
+            New Game
+          </button>
+        </div>
       </div>
     </div>
   );
