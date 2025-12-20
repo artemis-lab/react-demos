@@ -42,22 +42,22 @@ const TicTacToe = () => {
   const getStatusMessage = () => {
     if (winner) {
       return (
-        <span className="flex items-center gap-2 text-xl font-bold text-green-600">
-          <Trophy size={24} />
+        <span className="flex items-center gap-2 text-lg font-bold text-green-600 sm:text-xl">
+          <Trophy className="sm:h-6 sm:w-6" size={20} />
           Player {winner} wins!
         </span>
       );
     }
     if (isTie) {
       return (
-        <span className="flex items-center gap-2 text-xl font-bold text-gray-600">
-          <Handshake size={24} />
+        <span className="flex items-center gap-2 text-lg font-bold text-gray-600 sm:text-xl">
+          <Handshake className="sm:h-6 sm:w-6" size={20} />
           It's a tie!
         </span>
       );
     }
     return (
-      <span className="text-xl text-gray-700">
+      <span className="text-lg text-gray-700 sm:text-xl">
         Current turn:{" "}
         <span
           className={`font-bold ${currentMark === "X" ? "text-blue-600" : "text-purple-600"}`}
@@ -96,10 +96,12 @@ const TicTacToe = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="flex flex-col items-center gap-6 rounded-2xl bg-white p-6 shadow-2xl">
-        <h1 className="text-3xl font-bold text-gray-800">Tic Tac Toe</h1>
+      <div className="flex flex-col items-center gap-4 rounded-2xl bg-white p-4 shadow-2xl sm:gap-6 sm:p-6">
+        <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl">
+          Tic Tac Toe
+        </h1>
 
-        <div className="flex w-full flex-col items-center gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4">
+        <div className="flex w-full flex-col items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 p-3 sm:gap-4 sm:p-4">
           <div className="text-center">{getStatusMessage()}</div>
         </div>
 
