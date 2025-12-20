@@ -162,14 +162,6 @@ class LetterGuessGame {
   }
 
   /**
-   * Checks if the game has finished (either won or lost).
-   * @returns True if the game is over, false otherwise
-   */
-  isGameOver(): boolean {
-    return this.getStatus() !== "in_progress";
-  }
-
-  /**
    * Resets the game to its initial state with the same max attempts and target word.
    * @returns A new LetterGuessGame instance with fresh initial state
    * @remarks

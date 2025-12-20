@@ -15,12 +15,17 @@ const LetterGuess = () => {
     setGame((prev: LetterGuessGame) => prev.guessLetter(letter));
   }, []);
 
+  const handleReset = () => {
+    setGame(game.reset());
+  };
+
   const attemptsRemaining = game.getAttemptsRemaining();
   const characters = game.getTargetCharacters();
   const clickedLetters = game.getClickedLetters();
-  const isGameOver = game.isGameOver();
   const status = game.getStatus();
   const visibleLetters = game.getVisibleLetters();
+
+  const isGameOver = status !== "in_progress";
 
   return (
     <div className="flex items-center justify-center">
@@ -47,6 +52,13 @@ const LetterGuess = () => {
             onLetterClick={onLetterClick}
           />
         </div>
+
+        <button
+          className="w-full rounded-lg border border-blue-300 bg-blue-50 px-6 py-2 text-sm font-medium text-blue-700 transition-colors duration-200 hover:bg-blue-100 active:bg-blue-200"
+          onClick={handleReset}
+        >
+          New Game
+        </button>
       </div>
     </div>
   );
