@@ -4,7 +4,7 @@ import { isLetter } from "../../../games/LetterGuess/utils";
 
 // Button style constants
 const BASE_STYLES =
-  "h-12 w-12 rounded-lg text-lg font-semibold transition-all duration-200";
+  "h-10 w-10 rounded-lg text-base font-semibold transition-all duration-200 sm:h-11 sm:w-11 md:h-12 md:w-12 md:text-lg";
 const DISABLED_STYLES =
   "cursor-not-allowed bg-gray-300 text-gray-500 shadow-sm";
 const ENABLED_STYLES =
@@ -94,13 +94,17 @@ const LetterKeyboard = ({
   }, [clickedLetters, disabled, onLetterClick]);
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="inline-flex min-w-full flex-col items-center gap-3 sm:gap-4">
       <div
         aria-label="Letter keyboard"
-        className="flex flex-col items-center gap-2"
+        className="flex flex-col items-center gap-1.5 sm:gap-2"
       >
         {LAYOUT.map((row, index) => (
-          <div key={index} className="flex flex-row gap-2" role="group">
+          <div
+            key={index}
+            className="flex flex-row gap-1.5 sm:gap-2"
+            role="group"
+          >
             {row.map((letter) => {
               const normalizedLetter = letter.toUpperCase();
               const isClicked = clickedLetters.has(normalizedLetter);
@@ -125,7 +129,7 @@ const LetterKeyboard = ({
           </div>
         ))}
       </div>
-      <p aria-hidden="true" className="text-sm text-gray-500">
+      <p aria-hidden="true" className="text-xs text-gray-500 sm:text-sm">
         You can also use your keyboard
       </p>
     </div>

@@ -21,7 +21,7 @@ const RemainingAttempts = ({ remaining }: RemainingAttemptsProps) => {
   return (
     <div
       aria-live="polite"
-      className="flex items-center justify-center gap-2 text-lg"
+      className="flex min-w-fit items-center justify-center gap-2 text-sm whitespace-nowrap sm:text-base md:text-lg"
     >
       <Circle
         aria-hidden="true"

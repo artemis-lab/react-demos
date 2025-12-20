@@ -22,10 +22,12 @@ const LetterGuess = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="flex flex-col items-center gap-6 rounded-2xl bg-white p-6 shadow-2xl">
-        <h1 className="text-3xl font-bold text-gray-800">Letter Guess</h1>
+      <div className="flex w-full max-w-2xl flex-col items-center gap-4 rounded-2xl bg-white p-4 shadow-2xl sm:gap-6 sm:p-6">
+        <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl">
+          Letter Guess
+        </h1>
 
-        <div className="flex w-full flex-col items-center gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4">
+        <div className="flex w-full flex-col items-center gap-3 overflow-x-auto rounded-xl border border-gray-200 bg-gray-50 p-3 sm:gap-4 sm:p-4">
           <RevealableWord
             characters={characters}
             visibleLetters={visibleLetters}
@@ -33,11 +35,13 @@ const LetterGuess = () => {
           <RemainingAttempts remaining={attemptsRemaining} />
         </div>
 
-        <LetterKeyboard
-          clickedLetters={clickedLetters}
-          disabled={isGameOver}
-          onLetterClick={onLetterClick}
-        />
+        <div className="w-full overflow-x-auto">
+          <LetterKeyboard
+            clickedLetters={clickedLetters}
+            disabled={isGameOver}
+            onLetterClick={onLetterClick}
+          />
+        </div>
 
         {isGameOver && <div>Game over!</div>}
       </div>

@@ -31,7 +31,7 @@ const RevealableWord = ({
   return (
     <div
       aria-live="polite"
-      className="flex flex-wrap justify-center gap-1 font-mono text-4xl font-bold"
+      className="flex min-w-fit flex-nowrap justify-center gap-1 font-mono text-2xl font-bold sm:text-3xl md:text-4xl"
       role="text"
     >
       {characters.map((value, index) => {
