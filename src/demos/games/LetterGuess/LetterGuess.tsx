@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 
 import { LetterGuessGame } from "../../../games/LetterGuess";
+import GameStatus from "./GameStatus";
 import LetterKeyboard from "./LetterKeyboard";
 import RemainingAttempts from "./RemainingAttempts";
 import RevealableWord from "./RevealableWord";
@@ -18,6 +19,7 @@ const LetterGuess = () => {
   const characters = game.getTargetCharacters();
   const clickedLetters = game.getClickedLetters();
   const isGameOver = game.isGameOver();
+  const status = game.getStatus();
   const visibleLetters = game.getVisibleLetters();
 
   return (
@@ -32,7 +34,10 @@ const LetterGuess = () => {
             characters={characters}
             visibleLetters={visibleLetters}
           />
-          <RemainingAttempts remaining={attemptsRemaining} />
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+            <RemainingAttempts remaining={attemptsRemaining} />
+            <GameStatus status={status} />
+          </div>
         </div>
 
         <div className="w-full overflow-x-auto">
@@ -42,8 +47,6 @@ const LetterGuess = () => {
             onLetterClick={onLetterClick}
           />
         </div>
-
-        {isGameOver && <div>Game over!</div>}
       </div>
     </div>
   );
