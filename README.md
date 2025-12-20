@@ -98,7 +98,7 @@ A word guessing game demonstrating:
 
 **Features:**
 
-- 30+ programming-themed words (3-20+ characters)
+- 35 programming-themed words (3-15 characters)
 - Auto-calculated difficulty (5-12 attempts based on word length)
 - Animated letter reveal on correct guesses
 - Visual feedback for game status (in progress, won, lost)
