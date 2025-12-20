@@ -228,7 +228,7 @@ const FlagCapture = () => {
   }
 
   return (
-    <section aria-label="Flag characters" className="mx-auto max-w-4xl">
+    <section aria-label="Flag Characters" className="mx-auto max-w-4xl">
       <ul>
         {Array.from({ length: flag.length }, (_, index) => (
           <li key={index}>{flag[index]}</li>
