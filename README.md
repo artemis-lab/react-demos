@@ -81,6 +81,29 @@ A Capture The Flag challenge demonstrating:
 
 ### Games
 
+#### Letter Guess
+
+A word guessing game demonstrating:
+
+- Separation of game logic from UI components
+- Immutable state pattern with factory methods
+- Random word selection from curated word list
+- Dynamic difficulty scaling based on word length
+- Component composition (keyboard, word display, status indicators)
+- Character masking and progressive reveal
+- Accessibility with ARIA live regions and labels
+- Backend-ready architecture with shared types
+
+**Route:** `/games/letter-guess`
+
+**Features:**
+
+- 30+ programming-themed words (3-20+ characters)
+- Auto-calculated difficulty (5-12 attempts based on word length)
+- Animated letter reveal on correct guesses
+- Visual feedback for game status (in progress, won, lost)
+- Responsive design with mobile-first approach
+
 #### Tic-Tac-Toe
 
 A classic game demonstrating:

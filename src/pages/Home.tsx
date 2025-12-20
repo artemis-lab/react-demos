@@ -26,14 +26,14 @@ const Home = () => {
           <h2 className="mb-4 text-2xl font-semibold text-gray-700">Games</h2>
           <div className="grid gap-4">
             <DemoCard
-              description="Classic Tic-Tac-Toe game demonstrating separation of game logic from UI, immutable state patterns, and win condition algorithms."
-              title="Tic-Tac-Toe"
-              to="/games/tic-tac-toe"
-            />
-            <DemoCard
               description="Word guessing game with letter-by-letter reveals. Features an interactive keyboard, visual feedback, and attempt tracking."
               title="Letter Guess"
               to="/games/letter-guess"
+            />
+            <DemoCard
+              description="Classic Tic-Tac-Toe game demonstrating separation of game logic from UI, immutable state patterns, and win condition algorithms."
+              title="Tic-Tac-Toe"
+              to="/games/tic-tac-toe"
             />
           </div>
         </section>
