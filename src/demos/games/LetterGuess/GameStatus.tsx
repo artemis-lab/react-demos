@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import type { GameStatus as GameStatusType } from "../../../games/LetterGuess";
+import type { GameStatus as GameStatusType } from "../../../games/LetterGuess/types";
 
 type StatusContent = {
   colorClass: string;

@@ -1,2 +1,2 @@
-export type { GameStatus } from "./game";
 export { LetterGuessGame } from "./game";
+export type { CharacterInfo, GameStatus } from "./types";

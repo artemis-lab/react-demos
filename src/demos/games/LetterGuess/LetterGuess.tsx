@@ -20,10 +20,9 @@ const LetterGuess = () => {
   }, []);
 
   const attemptsRemaining = game.getAttemptsRemaining();
-  const characters = game.getTargetCharacters();
+  const characters = game.getCharacters();
   const clickedLetters = game.getClickedLetters();
   const status = game.getStatus();
-  const visibleLetters = game.getVisibleLetters();
 
   return (
     <div className="flex items-center justify-center">
@@ -36,10 +35,7 @@ const LetterGuess = () => {
         </h1>
 
         <div className="flex w-full flex-col items-center gap-3 overflow-x-auto rounded-xl border border-gray-200 bg-gray-50 p-3 sm:gap-4 sm:p-4">
-          <RevealableWord
-            characters={characters}
-            visibleLetters={visibleLetters}
-          />
+          <RevealableWord characters={characters} />
           <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
             <RemainingAttempts remaining={attemptsRemaining} />
             <GameStatus status={status} />

@@ -1,15 +1,6 @@
+import { type CharacterInfo, type GameState, type GameStatus } from "./types";
 import { isLetter } from "./utils";
 import { WORD_LIST } from "./words";
-
-type GameStatus = "in_progress" | "lost" | "won";
-
-type GameState = {
-  clickedLetters: ReadonlySet<string>;
-  maxAttempts: number;
-  targetUniqueLetters: ReadonlySet<string>;
-  targetWord: string;
-  visibleLetters: ReadonlySet<string>;
-};
 
 class LetterGuessGame {
   private readonly clickedLetters: ReadonlySet<string>;
@@ -43,14 +34,25 @@ class LetterGuessGame {
   }
 
   /**
-   * Calculates the maximum number of incorrect attempts based on unique letter count.
-   * @param uniqueLetterCount - The number of unique letters in the word
-   * @returns Number of max attempts (minimum 3, maximum 10)
+   * Calculates the maximum number of incorrect attempts based on word length.
+   * @param wordLength - The total length of the word
+   * @returns Number of max attempts (5-12 based on word length)
    */
-  private static calculateMaxAttempts(uniqueLetterCount: number): number {
-    // Give approximately half the number of unique letters as max wrong attempts
-    // Minimum 3, maximum 10
-    return Math.min(10, Math.max(3, Math.floor(uniqueLetterCount / 2)));
+  private static calculateMaxAttempts(wordLength: number): number {
+    // Short words (<=6 characters) get 5 attempts
+    if (wordLength <= 6) {
+      return 5;
+    }
+    // Medium words (7-12 characters) get 6-8 attempts
+    if (wordLength <= 12) {
+      return 6 + Math.floor((wordLength - 7) / 2);
+    }
+    // Long words (13-18 characters) get 9-11 attempts
+    if (wordLength <= 18) {
+      return 9 + Math.floor((wordLength - 13) / 2);
+    }
+    // Very long words (19+ characters) get 12 attempts (maximum)
+    return 12;
   }
 
   /**
@@ -74,7 +76,7 @@ class LetterGuessGame {
 
     // Calculate or use provided max attempts
     const finalMaxAttempts =
-      maxAttempts ?? this.calculateMaxAttempts(uniqueLetters.size);
+      maxAttempts ?? this.calculateMaxAttempts(normalizedTargetWord.length);
 
     if (finalMaxAttempts < 1) {
       throw new Error("maxAttempts must be at least 1");
@@ -135,6 +137,27 @@ class LetterGuessGame {
   }
 
   /**
+   * Returns detailed information about each character in the target word.
+   * @returns Array of CharacterInfo objects containing display value, visibility, and character metadata
+   */
+  getCharacters(): readonly CharacterInfo[] {
+    return this.targetWord.split("").map((character) => {
+      const isSpace = character === " ";
+      const isLetterCharacter = isLetter(character);
+      const isVisible = isLetterCharacter && this.visibleLetters.has(character);
+      const displayValue = isVisible || !isLetterCharacter ? character : "_";
+
+      return {
+        displayValue,
+        isLetter: isLetterCharacter,
+        isSpace,
+        isVisible,
+        value: character,
+      };
+    });
+  }
+
+  /**
    * Returns a set of all letters that have been clicked/guessed.
    * @returns Set of clicked letter characters
    */
@@ -158,22 +181,6 @@ class LetterGuessGame {
       return "lost";
     }
     return "in_progress";
-  }
-
-  /**
-   * Returns all characters in the target word (including punctuation and spaces).
-   * @returns Array of all characters from the target word in order
-   */
-  getTargetCharacters(): readonly string[] {
-    return this.targetWord.split("");
-  }
-
-  /**
-   * Returns a set of letters that have been correctly guessed (present in target word).
-   * @returns Set of visible letter characters
-   */
-  getVisibleLetters(): ReadonlySet<string> {
-    return new Set(this.visibleLetters);
   }
 
   /**
@@ -237,5 +244,3 @@ class LetterGuessGame {
 }
 
 export { LetterGuessGame };
-
-export type { GameStatus };
