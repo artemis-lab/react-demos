@@ -1,4 +1,5 @@
 import { isLetter } from "./utils";
+import { WORD_LIST } from "./words";
 
 type GameStatus = "in_progress" | "lost" | "won";
 
@@ -13,8 +14,8 @@ type GameState = {
 class LetterGuessGame {
   private readonly clickedLetters: ReadonlySet<string>;
   private readonly maxAttempts: number;
-  private readonly targetWord: string;
   private readonly targetUniqueLetters: ReadonlySet<string>;
+  private readonly targetWord: string;
   private readonly visibleLetters: ReadonlySet<string>;
 
   private constructor(state: GameState) {
@@ -26,41 +27,101 @@ class LetterGuessGame {
   }
 
   /**
-   * Creates a new Letter Guess game with initial state.
-   * @param maxAttempts - Maximum number of incorrect guesses allowed
-   * @param targetWord - The word or phrase to guess (case-insensitive, will be normalized to uppercase)
-   * @returns A new LetterGuessGame instance
-   * @throws {Error} If targetWord contains no letters or maxAttempts is less than 1
+   * Extracts unique letters from a word.
+   * @param word - The word to extract letters from
+   * @returns Set of unique letters (uppercase)
    */
-  static create(maxAttempts: number, targetWord: string): LetterGuessGame {
-    // Validate maxAttempts
-    if (maxAttempts < 1) {
+  private static getUniqueLetters(word: string): Set<string> {
+    const normalizedWord = word.toUpperCase();
+    const uniqueLetters = new Set<string>();
+    for (const character of normalizedWord) {
+      if (isLetter(character)) {
+        uniqueLetters.add(character);
+      }
+    }
+    return uniqueLetters;
+  }
+
+  /**
+   * Calculates the maximum number of incorrect attempts based on unique letter count.
+   * @param uniqueLetterCount - The number of unique letters in the word
+   * @returns Number of max attempts (minimum 3, maximum 10)
+   */
+  private static calculateMaxAttempts(uniqueLetterCount: number): number {
+    // Give approximately half the number of unique letters as max wrong attempts
+    // Minimum 3, maximum 10
+    return Math.min(10, Math.max(3, Math.floor(uniqueLetterCount / 2)));
+  }
+
+  /**
+   * Internal helper to create a game from a word with optional auto-calculated max attempts.
+   * @param targetWord - The word to use
+   * @param maxAttempts - Optional max attempts; if not provided, auto-calculated based on difficulty
+   * @returns A new LetterGuessGame instance
+   * @throws {Error} If word contains no letters or maxAttempts is less than 1
+   */
+  private static createFromWord(
+    targetWord: string,
+    maxAttempts?: number,
+  ): LetterGuessGame {
+    // Normalize and validate word
+    const normalizedTargetWord = targetWord.toUpperCase();
+    const uniqueLetters = this.getUniqueLetters(targetWord);
+
+    if (uniqueLetters.size === 0) {
+      throw new Error("Word must contain at least one letter");
+    }
+
+    // Calculate or use provided max attempts
+    const finalMaxAttempts =
+      maxAttempts ?? this.calculateMaxAttempts(uniqueLetters.size);
+
+    if (finalMaxAttempts < 1) {
       throw new Error("maxAttempts must be at least 1");
     }
 
-    // Normalize target word to uppercase
-    const normalizedTargetWord = targetWord.toUpperCase();
-
-    // Count unique letters in target word
-    const uniqueLetters = new Set<string>();
-    for (const char of normalizedTargetWord) {
-      if (isLetter(char)) {
-        uniqueLetters.add(char);
-      }
-    }
-
-    // Validate that target word contains at least one letter
-    if (uniqueLetters.size === 0) {
-      throw new Error("targetWord must contain at least one letter");
-    }
-
+    // Create game instance
     return new LetterGuessGame({
       clickedLetters: new Set<string>(),
-      maxAttempts,
+      maxAttempts: finalMaxAttempts,
       targetUniqueLetters: uniqueLetters,
       targetWord: normalizedTargetWord,
       visibleLetters: new Set<string>(),
     });
+  }
+
+  /**
+   * Creates a new Letter Guess game with a random word from the word list.
+   * Max attempts are automatically calculated based on word difficulty.
+   * @returns A new LetterGuessGame instance
+   * @throws {Error} If the word list is empty or word contains no letters
+   * @example
+   * const game = LetterGuessGame.createRandom();
+   */
+  static createRandom(): LetterGuessGame {
+    if (WORD_LIST.length === 0) {
+      throw new Error("Word list cannot be empty");
+    }
+    const randomIndex = Math.floor(Math.random() * WORD_LIST.length);
+    const randomWord = WORD_LIST[randomIndex];
+    if (!randomWord) {
+      throw new Error("Failed to select a random word");
+    }
+
+    return this.createFromWord(randomWord);
+  }
+
+  /**
+   * Creates a new Letter Guess game with a custom word and difficulty.
+   * @param maxAttempts - Maximum number of incorrect guesses allowed (minimum 1)
+   * @param targetWord - The word or phrase to guess (case-insensitive)
+   * @returns A new LetterGuessGame instance
+   * @throws {Error} If word contains no letters or maxAttempts is less than 1
+   * @example
+   * const game = LetterGuessGame.create(5, "TYPESCRIPT");
+   */
+  static create(maxAttempts: number, targetWord: string): LetterGuessGame {
+    return this.createFromWord(targetWord, maxAttempts);
   }
 
   /**
@@ -92,7 +153,8 @@ class LetterGuessGame {
 
     if (remainingLettersCount === 0) {
       return "won";
-    } else if (attemptsRemaining === 0) {
+    }
+    if (attemptsRemaining === 0) {
       return "lost";
     }
     return "in_progress";
@@ -116,13 +178,13 @@ class LetterGuessGame {
 
   /**
    * Makes a guess by clicking a letter.
-   * @param letter - The letter to guess (case-insensitive, will be normalized to uppercase)
+   * @param letter - The letter to guess (case-insensitive)
    * @returns A new LetterGuessGame instance with the guess applied, or the current instance if the guess is invalid
    * @remarks
    * - Returns a new instance if the guess is valid
    * - Returns the current instance (unchanged) if the game is over or the letter was already clicked
    * - Decrements attempts if the guessed letter is not in the target word
-   * - Updates game status to "won" if all letters are revealed, or "lost" if attempts reach 0
+   * - Game status becomes "won" if all letters are revealed, or "lost" if attempts reach 0
    */
   guessLetter(letter: string): LetterGuessGame {
     // Game is already over

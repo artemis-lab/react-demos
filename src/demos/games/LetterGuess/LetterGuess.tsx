@@ -8,7 +8,7 @@ import RevealableWord from "./RevealableWord";
 
 const LetterGuess = () => {
   const [game, setGame] = useState<LetterGuessGame>(() =>
-    LetterGuessGame.create(5, "HELLO, WORLD!"),
+    LetterGuessGame.createRandom(),
   );
 
   const onLetterClick = useCallback((letter: string): void => {
@@ -16,7 +16,7 @@ const LetterGuess = () => {
   }, []);
 
   const handleReset = useCallback(() => {
-    setGame((prev: LetterGuessGame) => prev.reset());
+    setGame(LetterGuessGame.createRandom());
   }, []);
 
   const attemptsRemaining = game.getAttemptsRemaining();
@@ -25,11 +25,12 @@ const LetterGuess = () => {
   const status = game.getStatus();
   const visibleLetters = game.getVisibleLetters();
 
-  const isGameOver = status !== "in_progress";
-
   return (
     <div className="flex items-center justify-center">
-      <div className="flex w-full max-w-2xl flex-col items-center gap-4 rounded-2xl bg-white p-4 shadow-2xl sm:gap-6 sm:p-6">
+      <div
+        aria-label="Letter Guess Game"
+        className="flex w-full max-w-2xl flex-col items-center gap-4 rounded-2xl bg-white p-4 shadow-2xl sm:gap-6 sm:p-6"
+      >
         <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl">
           Letter Guess
         </h1>
@@ -48,7 +49,7 @@ const LetterGuess = () => {
         <div className="w-full overflow-x-auto">
           <LetterKeyboard
             clickedLetters={clickedLetters}
-            disabled={isGameOver}
+            disabled={status !== "in_progress"}
             onLetterClick={onLetterClick}
           />
         </div>
@@ -56,7 +57,8 @@ const LetterGuess = () => {
         <div className="w-full border-t border-gray-200 pt-4">
           <button
             aria-label="Start a new game"
-            className="w-full rounded-lg border border-blue-300 bg-blue-50 px-6 py-2 text-sm font-medium text-blue-700 transition-colors duration-200 hover:bg-blue-100 active:bg-blue-200"
+            className="w-full rounded-lg border border-blue-300 bg-blue-50 px-6 py-2 text-sm font-medium text-blue-700 transition-colors hover:bg-blue-100 active:bg-blue-200"
+            type="button"
             onClick={handleReset}
           >
             New Game
