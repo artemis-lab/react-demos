@@ -96,7 +96,10 @@ const TicTacToe = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4 rounded-2xl bg-white p-4 shadow-2xl sm:gap-6 sm:p-6">
+      <div
+        aria-label="Tic Tac Toe Game"
+        className="flex flex-col items-center gap-4 rounded-2xl bg-white p-4 shadow-2xl sm:gap-6 sm:p-6"
+      >
         <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl">
           Tic Tac Toe
         </h1>
