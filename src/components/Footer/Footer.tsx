@@ -18,7 +18,6 @@ const getGitHubLink = (route: string): string => {
 const Footer = () => {
   const location = useLocation();
   const githubLink = getGitHubLink(location.pathname);
-  const isHomePage = location.pathname === "/";
 
   return (
     <footer className="border-t border-gray-200 py-4 text-center text-sm text-gray-600">
@@ -40,7 +39,7 @@ const Footer = () => {
           rel="noopener noreferrer"
           target="_blank"
         >
-          {isHomePage ? "View on GitHub" : "View Source Code"}
+          {githubLink === GITHUB_REPO ? "View on GitHub" : "View Source Code"}
         </a>
       </p>
     </footer>
