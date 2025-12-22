@@ -4,6 +4,8 @@
 
 A collection of React demo components showcasing various patterns and techniques. Built with React 19, TypeScript, Vite, and Tailwind CSS 4.
 
+**Live Demo:** [https://demos.artemislab.net/](https://demos.artemislab.net/)
+
 ## Purpose
 
 Demonstrates modern React development practices including:
