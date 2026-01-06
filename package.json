@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "tsc -b && vite build",
-    "ci": "npm run format:check && npm run lint && npm run test && npm run build",
+    "ci": "npm run format:check && npm run lint && npm run type-check && npm run type-check:test && npm run test && npm run build",
     "clean": "rm -rf dist",
     "dev": "vite",
     "format": "prettier --write \"**/*.{js,ts,tsx}\"",
@@ -29,7 +29,7 @@
     "test:ui": "vitest --ui",
     "test:unit": "vitest run test/unit",
     "test:watch": "vitest",
-    "type-check": "tsc --noEmit",
+    "type-check": "tsc --project tsconfig.app.json --noEmit",
     "type-check:test": "tsc --project tsconfig.test.json --noEmit"
   },
   "dependencies": {
