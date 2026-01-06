@@ -28,7 +28,9 @@
     "test:coverage:open": "vitest run --coverage && open coverage/index.html",
     "test:ui": "vitest --ui",
     "test:unit": "vitest run test/unit",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "type-check": "tsc --noEmit",
+    "type-check:test": "tsc --project tsconfig.test.json --noEmit"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.1.18",
