@@ -1,10 +1,43 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<!-- omit in toc -->
 # React Demos
 
 A collection of React demo components showcasing various patterns and techniques. Built with React 19, TypeScript, Vite, and Tailwind CSS 4.
 
-**Live Demo:** [https://demos.artemislab.net/](https://demos.artemislab.net/)
+**Live Demo:** [https://demos.artemislab.net](https://demos.artemislab.net)
+
+<!-- omit in toc -->
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Install Dependencies](#install-dependencies)
+  - [Development](#development)
+  - [Code Quality](#code-quality)
+- [Demos](#demos)
+  - [Challenges](#challenges)
+    - [Flag Capture](#flag-capture)
+  - [Games](#games)
+    - [Letter Guess](#letter-guess)
+    - [Tic-Tac-Toe](#tic-tac-toe)
+- [Features](#features)
+- [Deployment](#deployment)
+- [Architecture](#architecture)
+  - [Component Structure](#component-structure)
+  - [Game Architecture Pattern](#game-architecture-pattern)
+  - [State Management](#state-management)
+  - [Routing](#routing)
+- [Technical Details](#technical-details)
+- [Code Style](#code-style)
+  - [Import Sorting](#import-sorting)
+  - [JSX Props Sorting](#jsx-props-sorting)
+  - [Prettier](#prettier)
+- [Configuration](#configuration)
+  - [TypeScript](#typescript)
+  - [npm](#npm)
+- [License](#license)
 
 ## Purpose
 
@@ -128,6 +161,24 @@ A classic game demonstrating:
 - ✅ **Clean Code**: ESLint + Prettier with auto-sorting and formatting
 - ✅ **Responsive**: Mobile-first design with Tailwind utilities
 - ✅ **Accessible**: Semantic HTML with ARIA attributes
+
+## Deployment
+
+The application is deployed on Vercel with automatic deployments from the `master` branch.
+
+**Production URL**: [https://demos.artemislab.net](https://demos.artemislab.net)
+
+**Vercel Configuration**:
+
+- Build command: `npm run ci` (format check + lint + build)
+- Output directory: `dist`
+- SPA routing: Configured via `vercel.json` rewrites
+
+**Custom Domain**:
+
+- Domain: `demos.artemislab.net`
+- DNS: CNAME record pointing to Vercel
+- SSL: Automatically provisioned by Vercel
 
 ## Architecture
 
