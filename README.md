@@ -1,3 +1,5 @@
+[![Code Quality & Build](https://github.com/artemis-lab/react-demos/actions/workflows/ci.yml/badge.svg)](https://github.com/artemis-lab/react-demos/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/artemis-lab/react-demos/graph/badge.svg?token=3QPGQETF9B)](https://codecov.io/gh/artemis-lab/react-demos)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- omit in toc -->
